@@ -1,0 +1,2230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach version="3.0" author="Andrew Hall">
+   
+   <!-- The Data Models -->
+   
+   <DataModel name="DDataQUIT"> 
+     <String value="QUIT\r\n" token="true" mutable="false"/> 
+   </DataModel>
+   
+   <!-- FTP Data Models -->
+   
+  <!-- USER [username]: login with the specified username -->
+  <DataModel name="DataUSER">
+    <String value="USER anonymous"/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- PASS [password]: login with the specified password -->
+  <DataModel name="DataPASS">
+    <String value="PASS anonymous"/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- QUIT: terminate a connection with the server. -->
+  <DataModel name="DataQUIT"> 
+    <String value="QUIT"/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- Return the command's help -->
+  <DataModel name="DataHELP">
+    <String value="HELP "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- Identify user's account -->
+  <DataModel name="DataACCOUNT">
+    <String value="ACCOUNT "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+  
+  <!-- Append to a remote file  -->
+  <DataModel name="DataAPPEND">
+    <String value="APPEND "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+  
+  <!-- 		ASCII		 -->
+  <DataModel name="DataASCII">
+    <String value="ASCII "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+  
+  <!-- 		BELL		 -->
+  <DataModel name="DataBELL">
+    <String value="BELL "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+  
+
+  <!-- response -->
+  <DataModel name="DataResponse">
+	<String name="response"/>
+	</DataModel>
+  
+  <!--Fuzz Account-->
+  <StateModel name="StateACCOUNT" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataACCOUNT"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+   <!--Fuzz Append-->
+  <StateModel name="StateAPPEND" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataAPPEND"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <!--Fuzz Ascii-->
+  <StateModel name="StateASCII" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataASCII"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <!--Fuzz BELL-->
+  <StateModel name="StateBELL" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataBELL"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <!--Fuzz BINARY -->
+  <StateModel name="StateBINARY" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataBINARY"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz BYE-->
+  <StateModel name="StateBYE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataBYE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz CASE-->
+  <StateModel name="StateCASE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataCASE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz CD -->
+  <StateModel name="StateCD" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataCD"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz CDUP -->
+  <StateModel name="StateCDUP" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataCDUP"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz CHMOD-->
+  <StateModel name="StateCHMOD" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataCHMOD"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz CLOSE -->
+  <StateModel name="StateCLOSE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataCLOSE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz CR -->
+  <StateModel name="CR" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataCR"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz DEBUG-->
+  <StateModel name="StateDEBUG" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataDEBUG"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz DELETE-->
+  <StateModel name="StateDELETE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataDELETE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz DIR-->
+  <StateModel name="StateDIR" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataDIR"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz DISCONNECT -->
+  <StateModel name="StateDISCONNECT" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataDISCONNECT"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz EXIT-->
+  <StateModel name="StateEXIT" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataEXIT"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz FORM -->
+  <StateModel name="StateFORM" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataFORM"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz GET -->
+  <StateModel name="StateGET" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataGET"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz GLOB-->
+  <StateModel name="StateGLOB" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataGLOB"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz HASH-->
+  <StateModel name="StateHASH" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataHASH"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz HELP-->
+  <StateModel name="StateHELP" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataHELP"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz IDLE-->
+  <StateModel name="StateIDLE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataIDLE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz IMAGE-->
+  <StateModel name="StateIMAGE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataIMAGE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz IPANY-->
+  <StateModel name="StateIPANY" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataIPANY"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz IPv4-->
+  <StateModel name="StateIPV4" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataIPV4"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz IPV6-->
+  <StateModel name="StateIPV6" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataIPV6"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz LCD-->
+  <StateModel name="StateLCD" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataLCD"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz LS-->
+  <StateModel name="StateLS" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataLS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz MACDEF-->
+  <StateModel name="StateMACDEF" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataMACDEF"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz MDELETE-->
+  <StateModel name="StateMDELETE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataMDELETE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz MDIR-->
+  <StateModel name="StateMDIR" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataMDIR"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  <Agent name="RemoteAgent" location="tcp://127.0.0.1:9001">
+    <!-- Run and attach windbg to a vulnerable server. -->
+    <Monitor class="WindowsDebugger">
+      <Param name="CommandLine" value="C:\open-ftpd.1.2\ftpd.exe"/>
+	  <Param name="WinDbgPath" value="C:\Program Files\Debugging Tools for Windows (x86)" />
+    </Monitor>
+  </Agent>
+  
+    <!--Fuzz MGET-->
+  <StateModel name="StateMGET" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataMGET"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz MKDIR-->
+  <StateModel name="StateMKDIR" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataMKDIR"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz MLS-->
+  <StateModel name="StateMLS" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataMLS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz MODE-->
+  <StateModel name="StateMODE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataMODE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz MODTIME-->
+  <StateModel name="StateMODTIME" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataMODTIME"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz MPUT-->
+  <StateModel name="StateMPUT" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataMPUT"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz NEWER-->
+  <StateModel name="StateNEWER" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataNEWER"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz NLIST-->
+  <StateModel name="StateNLIST" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataNLIST"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz NMAP-->
+  <StateModel name="StateNMAP" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataNMAP"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz NTRANS-->
+  <StateModel name="StateNTRANS" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataNTRANS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz OPEN-->
+  <StateModel name="StateOPEN" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataOPEN"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz PASSIVE -->
+  <StateModel name="StatePASSIVE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASSIVE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz PROMPT -->
+  <StateModel name="StatePROMPT" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPROMPT"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz PROXY-->
+  <StateModel name="StatePROXY" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPROXY"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!-- uzz PUT -->
+  <StateModel name="StatePUT" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPUT"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz PWD-->
+  <StateModel name="StatePWD" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPWD"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz QC-->
+  <StateModel name="StateQC" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataQC"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz QUIT-->
+  <StateModel name="StateQUIT" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataQUIT"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz QUOTE-->
+  <StateModel name="StateQUOTE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataQUOTE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz RECV-->
+  <StateModel name="StateRECV" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataRECV"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz REGET-->
+  <StateModel name="StateREGET" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataREGET"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz RENAME-->
+  <StateModel name="StateRENAME" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataRENAME"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz RESET-->
+  <StateModel name="StateRESET" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataRESET"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz RESTART -->
+  <StateModel name="StateRESTART" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataRESTART"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz RHELP -->
+  <StateModel name="StateRHELP" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataRHELP"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz RMDIR-->
+  <StateModel name="StateRMDIR" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataRMDIR"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz RSTATUS -->
+  <StateModel name="StateRSTATUS" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataRSTATUS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz RUNIQUE -->
+  <StateModel name="StateRUNIQUE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataRUNIQUE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz SEND -->
+  <StateModel name="StateSEND" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataSEND"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz SENDPORT -->
+  <StateModel name="StateSENDPORT" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataSENDPORT"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz SITE -->
+  <StateModel name="StateSITE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataSITE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz SIZE -->
+  <StateModel name="StateSIZE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataSIZE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz STATUS-->
+  <StateModel name="StateSTATUS" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataSTATUS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz STRUCT -->
+  <StateModel name="StateSTRUCT" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataSTRUCT"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz SUNIQUE-->
+  <StateModel name="StateSUNIQUE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataSUNIQUE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz SYSTEM -->
+  <StateModel name="StateSYSTEM" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataSYSTEM"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz TENEX-->
+  <StateModel name="StateTENEX" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataTENEX"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+    <!--Fuzz TICK -->
+  <StateModel name="StateTICK" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataTICK"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <!--Fuzz TRACE -->
+  <StateModel name="StateTRACE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataTRACE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <!--Fuzz TYPE -->
+  <StateModel name="StateTYPE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataTYPE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <!--Fuzz UMASK -->
+  <StateModel name="StateUMASK" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataUMASK"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <!--Fuzz USER -->
+  <StateModel name="StateUSER" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataUSER"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <!--Fuzz VERBOSE -->
+  <StateModel name="StateVERBOSE" initialState="Initial">
+    <State name="Initial">
+	  <Action type="connect"/>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataPASS"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DataVERBOSE"/></Action>
+	  <Action type="input" ><DataModel ref="DataResponse"/></Action>
+	  <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+	  <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <!-- Test Cases --!>
+  
+  <!-- Test case for Account -->
+  <Test name="TestACCOUNT">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateACCOUNT"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Append -->
+  <Test name="TestAPPEND">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateAPPEND"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Ascii -->
+  <Test name="TestASCII">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateASCII"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Bell -->
+  <Test name="TestBELL">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateBELL"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Binary -->
+  <Test name="TestBINARY">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateBINARY"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Bye -->
+  <Test name="TestBYE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateBYE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Case -->
+  <Test name="TestCASE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateCASE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for cd -->
+  <Test name="TestCD">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateCD"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for cdup -->
+  <Test name="TestCDUP">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateCDUP"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Chmod -->
+  <Test name="TestCHMOD">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateCHMOD"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for CLOSE -->
+  <Test name="TestCLOSE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateCLOSE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for CR -->
+  <Test name="TestCR">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateCR"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Debug -->
+  <Test name="TestDEBUG">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateDEBUG"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Delete  -->
+  <Test name="TestDELETE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateDELETE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Dir  -->
+  <Test name="TestDIR">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateDIR"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Disconnect  -->
+  <Test name="TestDISCONNECT">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateDISCONNECT"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Exit  -->
+  <Test name="TestEXIT">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateEXIT"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Form  -->
+  <Test name="TestFORM">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateFORM"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Get  -->
+  <Test name="TestGET">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateGET"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Glob -->
+  <Test name="TestGLOB">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateGLOB"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Hash  -->
+  <Test name="TestHASH">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateHASH"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Help  -->
+  <Test name="TestHELP">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateHELP"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Idle  -->
+  <Test name="TestIDLE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateIDLE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Image  -->
+  <Test name="TestIMAGE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateIMAGE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for IPany  -->
+  <Test name="TestIPANY">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateIPANY"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for IPv4 -->
+  <Test name="TestIPV4">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateIPV4"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for IPv6  -->
+  <Test name="TestIPV6">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateIPV6"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for lcd  -->
+  <Test name="TestLCD">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateLCD"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for ls  -->
+  <Test name="TestLS">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateLS"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for Macdef  -->
+  <Test name="TestMACDEF">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateMACDEF"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for mDelete  -->
+  <Test name="TestMDELETE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateMDELETE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for mDir  -->
+  <Test name="TestMDIR">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateMDIR"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for mls  -->
+  <Test name="TestMLS">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateMLS"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for mode  -->
+  <Test name="TestMODE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateMODE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for MODTIME  -->
+  <Test name="TestMODTIME">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateMODTIME"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for mput  -->
+  <Test name="TestMPUT">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateMPUT"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for newer  -->
+  <Test name="TestNEWER">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateNEWER"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for NLIST  -->
+  <Test name="TestNLIST">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateNLIST"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for NMAP  -->
+  <Test name="TestNMAP">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateNMAP"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for NTRANS  -->
+  <Test name="TestNTRANS">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateNTRANS"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for OPEN  -->
+  <Test name="TestOPEN">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateOPEN"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for PASSIVE  -->
+  <Test name="TestPASSIVE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StatePASSIVE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for PROMPT  -->
+  <Test name="TestPROMPT">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StatePRMOPT"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for PROXY  -->
+  <Test name="TestPROXY">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StatePROXY"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for PUT  -->
+  <Test name="TestPUT">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StatePUT"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for PWD -->
+  <Test name="TestPWD">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StatePWD"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for QC  -->
+  <Test name="TestQC">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateQC"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for QUIT  -->
+  <Test name="TestQUIT">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateQUIT"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for QUOTE  -->
+  <Test name="TestQUOTE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateQUOTE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for RECV  -->
+  <Test name="TestRECV">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateRECV"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for REGET  -->
+  <Test name="TestREGET">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateREGET"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for RENAME  -->
+  <Test name="TestRENAME">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateRENAME"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for RESET  -->
+  <Test name="TestRESET">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateRESET"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for RESTART  -->
+  <Test name="TestRESTART">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateRESTART"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for RHELP  -->
+  <Test name="RHELP">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateRHELP"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for RMDIR  -->
+  <Test name="TestRMDIR">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateRMDIR"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for RSTATUS  -->
+  <Test name="TestRSTATUS">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateRSTATUS"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for RUNIQUE  -->
+  <Test name="TestRUNIQUE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateRUNIQUE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for SEND  -->
+  <Test name="TestSEND">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateSEND"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for SENDPORT  -->
+  <Test name="TestSENDPORT">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateSENDPORT"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for SITE  -->
+  <Test name="TestSITE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateSITE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for SIZE  -->
+  <Test name="TestSIZE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateSIZE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for STATUS  -->
+  <Test name="TestSTATUS">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateSTATUS"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for STRUCT  -->
+  <Test name="TestSTRUCT">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateSTRUCT"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for SUNIQUE  -->
+  <Test name="TestSUNIQUE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateSUNIQUE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for SYSTEM  -->
+  <Test name="TestSYSTEM">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateSYSTEM"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for TENEX  -->
+  <Test name="TestTENEX">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateTENEX"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for TICK  -->
+  <Test name="TestTICK">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateTICK"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for TRACE  -->
+  <Test name="TestTRACE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateTRACE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for TYPE  -->
+  <Test name="TestTYPE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateTYPE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for UMASK  -->
+  <Test name="TestUMASK">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateUMASK"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for USER  -->
+  <Test name="TestUSER">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateUSER"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+  
+  <!-- Test case for VERBOSE  -->
+  <Test name="TestVERBOSE">
+    <Agent ref="RemoteAgent"/>
+    <StateModel ref="StateVERBOSE"/>
+    <Publisher class="TcpClient">
+      <Param name="Host" value="127.0.0.1"/>
+      <Param name="Port" value="21"/>
+    </Publisher>
+	<Logger class="File">
+      <Param name="Path" value="Logs"/>
+    </Logger>
+  </Test>
+</Peach>
